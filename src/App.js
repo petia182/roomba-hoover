@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Block from './components/block';
 import "./App.scss";
 
 class App extends Component {
@@ -52,6 +53,7 @@ class App extends Component {
           <p>Length: {this.state.roomDimensions.height}px</p>
         </div>
 				<div style={{ width: parseInt(this.state.roomDimensions.width), height: parseInt(this.state.roomDimensions.height)  }} className="coordinate-system">
+          <Block></Block>
 				</div>
 			</div>
 		);

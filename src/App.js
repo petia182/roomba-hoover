@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Block from "./components/block";
+import Room from "./components/room";
+import RoomSettings from "./components/room-settings";
+import RoombaSettings from "./components/roomba-settings";
 import "./App.scss";
 
 class App extends Component {
@@ -54,14 +56,19 @@ class App extends Component {
 		});
 	};
 
-	renderBlock() {
+	getUserInput(e) {
+		console.log(e.target.value);
+		return e.target.value;
+	}
+
+	renderBlock(roomDimensionsWidth, roomDimensionsHeight) {
 		let blocks = [];
 		for (let i = 0; i < 25; i++) {
 			blocks.push(
 				<div
 					style={{
-						width: this.state.roomDimensions.width / 5,
-						height: this.state.roomDimensions.height / 5
+						width: roomDimensionsWidth / 5,
+						height: roomDimensionsHeight / 5
 					}}
 					key={i}
 					className="blocks"
@@ -72,81 +79,38 @@ class App extends Component {
 	}
 
 	render() {
+		const roomDimensionsWidth = this.state.roomDimensions.width;
+		const roomDimensionsHeight = this.state.roomDimensions.height;
+		const robotYCoordinates = this.state.robotCoordinates.y;
+		const robotXCoordinates = this.state.robotCoordinates.x;
+
 		return (
 			<div className="container">
 				<div className="settings">
-					<div className="room-coordinates">
-						<p>Current Room dimensions</p>
-						<p>Width: {this.state.roomDimensions.width}px</p>
-						<p>Length: {this.state.roomDimensions.height}px</p>
-					</div>
-					Set Room Dimensions (number)
-					<br />
-					<form action="">
-						<div className="form-group">
-							<label htmlFor="room-width-dimensions">Set width</label>
-							<input
-								onChange={this.setRoomWidthDimensions}
-								id="room-width-dimensions"
-								type="number"
-							/>
-						</div>
-						<div className="form-group">
-							<label htmlFor="room-height-dimensions">Set length</label>
-							<input
-								onChange={this.setRoomHeightDimensions}
-								id="room-height-dimensions"
-								type="number"
-							/>
-						</div>
-						<hr />
-						<div className="roomba-coordinates">
-							Roomba coordinates
-							<p>X: {this.state.robotCoordinates.x}</p>
-							<p>Y: {this.state.robotCoordinates.y}</p>
-						</div>
-						<div className="form-group">
-							<label htmlFor="">Set X coordinate (between 0 and 5):</label>
-							<input
-								onChange={this.setRobotXCoordinates}
-								type="number"
-								min="0"
-								max="5"
-							/>
-						</div>
-						<div className="form-group">
-							<label htmlFor="">Set Y coordinate (between 0 and 5):</label>
-							<input
-								onChange={this.setRobotYCoordinates}
-								type="number"
-								min="0"
-								max="5"
-							/>
-						</div>
-					</form>
+					<RoomSettings
+						roomDimensionsWidth={roomDimensionsWidth}
+						roomDimensionsHeight={roomDimensionsHeight}
+						setRoomWidthDimensions={this.setRoomWidthDimensions}
+						setRoomHeightDimensions={this.setRoomHeightDimensions}
+					/>
+					<hr />
+					<RoombaSettings
+						robotYCoordinates={robotYCoordinates}
+						robotXCoordinates={robotXCoordinates}
+						setRobotXCoordinates={this.setRobotXCoordinates}
+						setRobotYCoordinates={this.setRobotYCoordinates}
+					/>
 				</div>
-				<div
-					style={{
-						width: parseInt(this.state.roomDimensions.width, 0),
-						height: parseInt(this.state.roomDimensions.height, 0)
-					}}
-					className="coordinate-system"
-				>
-					{this.renderBlock()}
-					<div
-						style={{
-							width: this.state.roomDimensions.width / 5,
-							height: this.state.roomDimensions.height / 5,
-							bottom: this.state.robotCoordinates.y,
-							left: this.state.robotCoordinates.x
-						}}
-						className="roomba"
-					>
-						Roomba
-					</div>
-					<p className="x-axis">X axis</p>
-					<p className="y-axis">Y axis</p>
-				</div>
+				<Room
+					roomDimensionsWidth={roomDimensionsWidth}
+					roomDimensionsHeight={roomDimensionsHeight}
+					robotYCoordinates={robotYCoordinates}
+					robotXCoordinates={robotXCoordinates}
+					renderBlock={this.renderBlock(
+						this.state.roomDimensions.width,
+						this.state.roomDimensions.height
+					)}
+				/>
 			</div>
 		);
 	}

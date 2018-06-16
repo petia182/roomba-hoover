@@ -5,6 +5,12 @@ $square-height: 60px;
   height: 100%;
   margin: 40px auto;
   max-width: 1300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings {
+  flex-basis: 30%;
 }
 
 .coordinate-system {
@@ -12,23 +18,42 @@ $square-height: 60px;
   flex-wrap: wrap;
   margin: 0 auto;
   background-color: yellow;
+  position: relative;
   // max-width: calc(#{$square-width + 2} * 5);
 }
 
 .blocks {
   outline: 1px solid black;
 }
-/**
-.square {
-  height: $square-height;
-  width: $square-width;
-  border: 1px solid grey
-  &:nth-child(odd) {
-    background-color: hotpink;
-  }
 
-  &:nth-child(even) {
-    background-color: orange;
-  }
+.roomba {
+  position: absolute;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
-  */
+
+.roomba-coordinates {
+  color: orange;
+}
+
+.room-coordinates {
+  color: purple;
+}
+
+.y-axis {
+  position: absolute;
+  margin: 0;
+  top: -20px;
+  left: -20px;
+}
+
+.x-axis {
+  position: absolute;
+  margin: 0;
+  bottom: -20px;
+  right: -20px;
+}

@@ -6,15 +6,16 @@ class RoombaSettings extends React.Component {
 			robotYCoordinates,
 			robotXCoordinates,
 			setRobotXCoordinates,
-			setRobotYCoordinates
+			setRobotYCoordinates,
+			blockSize
 		} = this.props;
 
 		return (
 			<React.Fragment>
 				<div className="roomba-coordinates">
 					Roomba coordinates
-					<p>X: {robotXCoordinates}</p>
-					<p>Y: {robotYCoordinates}</p>
+					<p>X: {robotXCoordinates / blockSize}</p>
+					<p>Y: {robotYCoordinates / blockSize}</p>
 				</div>
 				<div className="form-group">
 					<label htmlFor="">Set X coordinate (between 0 and 5):</label>

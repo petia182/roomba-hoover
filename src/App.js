@@ -9,8 +9,8 @@ class App extends Component {
 		super();
 		this.state = {
 			roomDimensions: {
-				width: 2,
-				height: 2
+				width: 5,
+				height: 5
 			},
 			robotCoordinates: {
 				x: 0,
@@ -44,7 +44,7 @@ class App extends Component {
 	setRobotXCoordinates = e => {
 		this.setState({
 			robotCoordinates: {
-				x: e.target.value * this.state.roomDimensions.width / 5,
+				x: e.target.value,
 				y: this.state.robotCoordinates.y
 			}
 		});
@@ -53,7 +53,7 @@ class App extends Component {
 	setRobotYCoordinates = e => {
 		this.setState({
 			robotCoordinates: {
-				y: e.target.value * this.state.roomDimensions.width / 5,
+				y: e.target.value,
 				x: this.state.robotCoordinates.x
 			}
 		});
@@ -120,10 +120,12 @@ class App extends Component {
 			this.state.roomDimensions.width * this.blockSize;
 		const roomDimensionsHeight =
 			this.state.roomDimensions.height * this.blockSize;
-		const robotYCoordinates = this.state.robotCoordinates.y;
-		const robotXCoordinates = this.state.robotCoordinates.x;
+		const robotYCoordinates = this.state.robotCoordinates.y * this.blockSize;
+		const robotXCoordinates = this.state.robotCoordinates.x * this.blockSize;
 
 		this.moveRobot();
+
+		console.log(robotYCoordinates);
 
 		return (
 			<div className="container">
@@ -140,6 +142,7 @@ class App extends Component {
 						robotXCoordinates={robotXCoordinates}
 						setRobotXCoordinates={this.setRobotXCoordinates}
 						setRobotYCoordinates={this.setRobotYCoordinates}
+						blockSize={this.blockSize}
 					/>
 				</div>
 				<Room

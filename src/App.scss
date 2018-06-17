@@ -1,5 +1,5 @@
 $block: 60px;
-$border-width: 42px;
+$border-width: 40px;
 
 .container {
   height: 100%;
@@ -73,12 +73,12 @@ $border-width: 42px;
   position: absolute;
   margin: 0;
   top: -$border-width;
-  left: -$border-width;
+  left: calc(-#{$border-width} - 5px);
 }
 
 .x-axis {
   position: absolute;
   margin: 0;
-  bottom: -$border-width;
+  bottom: calc(-#{$border-width} - 9px);
   right: -$border-width;
 }

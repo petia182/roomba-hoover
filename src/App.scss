@@ -18,9 +18,9 @@ $border-width: 40px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  background-color: yellow;
+  background-color: lightpink;
   position: relative;
-  border: 20px solid brown;
+  border: 20px solid grey;
 
   &::after,
   &::before {

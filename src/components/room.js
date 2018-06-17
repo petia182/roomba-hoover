@@ -7,7 +7,8 @@ class Room extends React.Component {
 			roomDimensionsHeight,
 			robotXCoordinates,
 			robotYCoordinates,
-			renderBlock
+			renderBlock,
+			blockSize
 		} = this.props;
 		return (
 			<div
@@ -21,8 +22,8 @@ class Room extends React.Component {
 				<div
 					className="roomba"
 					style={{
-						width: 60,
-						height: 60,
+						width: blockSize,
+						height: blockSize,
 						bottom: robotYCoordinates,
 						left: robotXCoordinates
 					}}

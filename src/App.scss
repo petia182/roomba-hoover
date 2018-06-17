@@ -1,5 +1,5 @@
-$square-width: 60px;
-$square-height: 60px;
+$block: 60px;
+$border-width: 42px;
 
 .container {
   height: 100%;
@@ -20,11 +20,34 @@ $square-height: 60px;
   margin: 0 auto;
   background-color: yellow;
   position: relative;
+  border: 20px solid brown;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    left: -$border-width;
+    bottom: -$border-width;
+  }
+
+  &::after {
+    height: calc(100% + #{$border-width * 1.5});
+    width: 1px;
+    background-color: red;
+  }
+
+  &::before {
+    width: calc(100% + #{$border-width * 1.5});
+    height: 1px;
+    background-color: blue;
+  }
   // max-width: calc(#{$square-width + 2} * 5);
 }
 
 .blocks {
   outline: 1px solid black;
+  // height: $block;
+  // width: $block;
 }
 
 .roomba {
@@ -35,6 +58,7 @@ $square-height: 60px;
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .roomba-coordinates {
@@ -48,13 +72,13 @@ $square-height: 60px;
 .y-axis {
   position: absolute;
   margin: 0;
-  top: -20px;
-  left: -20px;
+  top: -$border-width;
+  left: -$border-width;
 }
 
 .x-axis {
   position: absolute;
   margin: 0;
-  bottom: -20px;
-  right: -20px;
+  bottom: -$border-width;
+  right: -$border-width;
 }

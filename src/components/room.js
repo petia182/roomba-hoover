@@ -19,18 +19,18 @@ class Room extends React.Component {
 			>
 				{renderBlock}
 				<div
+					className="roomba"
 					style={{
-						width: roomDimensionsWidth / 5,
-						height: roomDimensionsHeight / 5,
+						width: 60,
+						height: 60,
 						bottom: robotYCoordinates,
 						left: robotXCoordinates
 					}}
-					className="roomba"
 				>
 					Roomba
 				</div>
-				<p className="x-axis">X axis</p>
-				<p className="y-axis">Y axis</p>
+				<p className="x-axis">X</p>
+				<p className="y-axis">Y</p>
 			</div>
 		);
 	}

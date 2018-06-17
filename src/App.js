@@ -5,21 +5,24 @@ import RoombaSettings from "./components/roomba-settings";
 import "./App.scss";
 
 class App extends Component {
-	state = {
-		roomDimensions: {
-			width: 400,
-			height: 400
-		},
-		robotCoordinates: {
-			x: 0,
-			y: 0
-		},
-		dirtCoordinates: {
-			x: 1,
-			y: 1
-		}
-	};
-
+	constructor(props) {
+		super();
+		this.state = {
+			roomDimensions: {
+				width: 2,
+				height: 2
+			},
+			robotCoordinates: {
+				x: 0,
+				y: 0
+			},
+			dirtCoordinates: {
+				x: 0,
+				y: 0
+			}
+		};
+		this.blockSize = 60;
+	}
 	setRoomWidthDimensions = e => {
 		this.setState({
 			roomDimensions: {
@@ -41,7 +44,7 @@ class App extends Component {
 	setRobotXCoordinates = e => {
 		this.setState({
 			robotCoordinates: {
-				x: (e.target.value - 1) * this.state.roomDimensions.width / 5,
+				x: e.target.value * this.state.roomDimensions.width / 5,
 				y: this.state.robotCoordinates.y
 			}
 		});
@@ -50,25 +53,27 @@ class App extends Component {
 	setRobotYCoordinates = e => {
 		this.setState({
 			robotCoordinates: {
-				y: (e.target.value - 1) * this.state.roomDimensions.width / 5,
+				y: e.target.value * this.state.roomDimensions.width / 5,
 				x: this.state.robotCoordinates.x
 			}
 		});
 	};
 
-	getUserInput(e) {
-		console.log(e.target.value);
-		return e.target.value;
-	}
+	// getUserInput(e) {
+	// 	console.log(e.target.value);
+	// 	return e.target.value;
+	// }
 
-	renderBlock(roomDimensionsWidth, roomDimensionsHeight) {
+	renderBlock = (roomDimensionsWidth, roomDimensionsHeight) => {
+		const numberOfBlocks =
+			this.state.roomDimensions.width * this.state.roomDimensions.height;
 		let blocks = [];
-		for (let i = 0; i < 25; i++) {
+		for (let i = 0; i < numberOfBlocks; i++) {
 			blocks.push(
 				<div
 					style={{
-						width: roomDimensionsWidth / 5,
-						height: roomDimensionsHeight / 5
+						width: this.blockSize,
+						height: this.blockSize
 					}}
 					key={i}
 					className="blocks"
@@ -76,13 +81,49 @@ class App extends Component {
 			);
 		}
 		return blocks;
-	}
+	};
+
+	componentDidUpdate = () => {
+		this.moveRobot();
+	};
+
+	moveRobot = e => {
+		// let n = 0;
+		// document.body.addEventListener("keyup", e => {
+		// 	n += 1;
+		// 	console.log(this.state.robotCoordinates.x);
+		// 	this.setState({
+		// 		robotCoordinates: {
+		// 			y: this.state.robotCoordinates.x + n,
+		// 			x: 5
+		// 		}
+		// 	});
+		// 	if (e.keyCode === 38 || e.keyCode === 87) {
+		// 		// this.setState({
+		// 		// 	robotCoordinates: {
+		// 		// 		y: n,
+		// 		// 		x: this.state.robotCoordinates.x
+		// 		// 	}
+		// 		// });
+		// 	} else if (e.keyCode === 40 || e.keyCode === 83) {
+		// 		console.log("DOWN");
+		// 	} else if (e.keyCode === 37 || e.keyCode === 65) {
+		// 		console.log("LEFT");
+		// 	} else if (e.keyCode === 39 || e.keyCode === 68) {
+		// 		console.log("RIGHT");
+		// 	}
+		// });
+	};
 
 	render() {
-		const roomDimensionsWidth = this.state.roomDimensions.width;
-		const roomDimensionsHeight = this.state.roomDimensions.height;
+		const roomDimensionsWidth =
+			this.state.roomDimensions.width * this.blockSize;
+		const roomDimensionsHeight =
+			this.state.roomDimensions.height * this.blockSize;
 		const robotYCoordinates = this.state.robotCoordinates.y;
 		const robotXCoordinates = this.state.robotCoordinates.x;
+
+		this.moveRobot();
 
 		return (
 			<div className="container">

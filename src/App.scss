@@ -7,21 +7,17 @@ $border-width: 40px;
   // max-width: 1300px;
   display: flex;
   width: 90%;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 
 .settings {
-  flex-basis: 30%;
+  width: calc(30% - 40px);
+  margin-right: 20vw;
 }
 
-.coordinate-system {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  background-color: lightpink;
+.coordinate-system-wrapper {
   position: relative;
-  border: 20px solid grey;
-  // overflow: hidden;
+  width: calc(30% - 40px);
 
   &::after,
   &::before {
@@ -42,7 +38,16 @@ $border-width: 40px;
     height: 1px;
     background-color: blue;
   }
-  // max-width: calc(#{$square-width + 2} * 5);
+ }
+
+.coordinate-system {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  background-color: lightpink;
+  position: relative;
+  border: 20px solid grey;
+  overflow: hidden;
 }
 
 .blocks {

@@ -1,5 +1,7 @@
 import React from "react";
 
+import DirtPatch from "./dirt-patch";
+
 class Room extends React.Component {
 	render() {
 		const {
@@ -8,7 +10,10 @@ class Room extends React.Component {
 			robotXCoordinates,
 			robotYCoordinates,
 			renderBlock,
-			blockSize
+			blockSize,
+			dirtXCoordinates,
+			dirtYCoordinates,
+			dirtOpacity
 		} = this.props;
 		return (
 			<div
@@ -24,12 +29,20 @@ class Room extends React.Component {
 					style={{
 						width: blockSize,
 						height: blockSize,
-						bottom: robotYCoordinates,
-						left: robotXCoordinates
+						bottom: robotYCoordinates * blockSize,
+						left: robotXCoordinates * blockSize
 					}}
 				>
 					Roomba
 				</div>
+				<DirtPatch
+					blockSize={blockSize}
+					dirtXCoordinates={dirtXCoordinates}
+					dirtYCoordinates={dirtYCoordinates}
+					robotXCoordinates={robotXCoordinates}
+					robotYCoordinates={robotYCoordinates}
+					dirtOpacity={dirtOpacity}
+				/>
 				<p className="x-axis">X</p>
 				<p className="y-axis">Y</p>
 			</div>

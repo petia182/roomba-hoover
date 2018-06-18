@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+
 import Room from "./components/room";
 import RoomSettings from "./components/room-settings";
 import RoombaSettings from "./components/roomba-settings";
+import DirtSettings from "./components/dirt-settings";
 import "./App.scss";
 
 class App extends Component {
@@ -17,18 +20,25 @@ class App extends Component {
 				y: 0
 			},
 			dirtCoordinates: {
-				x: 0,
-				y: 0
+				x: -1,
+				y: -1,
+				opacity: 0,
 			},
-			count: 0
+			dirtPatches: [],
+			dirtCount: 0
 		};
-		this.blockSize = 80;
+		this.blockSize = 60;
 	}
+
 	setRoomWidthDimensions = e => {
 		this.setState({
 			roomDimensions: {
 				x: parseInt(e.target.value, 0),
 				y: this.state.roomDimensions.y
+			},
+			robotCoordinates: {
+				x: 0,
+				y: 0
 			}
 		});
 	};
@@ -38,6 +48,10 @@ class App extends Component {
 			roomDimensions: {
 				y: parseInt(e.target.value, 0),
 				x: this.state.roomDimensions.x
+			},
+			robotCoordinates: {
+				x: 0,
+				y: 0
 			}
 		});
 	};
@@ -46,7 +60,7 @@ class App extends Component {
 		this.setState({
 			robotCoordinates: {
 				x: parseInt(e.target.value, 0),
-				y: this.state.robotCoordinates.y
+				y: this.state.robotCoordinates.y,
 			}
 		});
 	};
@@ -55,15 +69,10 @@ class App extends Component {
 		this.setState({
 			robotCoordinates: {
 				y: parseInt(e.target.value, 0),
-				x: this.state.robotCoordinates.x
+				x: this.state.robotCoordinates.x,
 			}
 		});
 	};
-
-	// getUserInput(e) {
-	// 	console.log(e.target.value);
-	// 	return e.target.value;
-	// }
 
 	renderBlock = (roomDimensionsWidth, roomDimensionsHeight) => {
 		const numberOfBlocks =
@@ -84,9 +93,87 @@ class App extends Component {
 		return blocks;
 	};
 
-	// componentDidUpdate = () => {
-	// 	this.moveRobot();
-	// };
+	addDirtPatchForm = e => {
+		e.preventDefault();
+		console.log("click");
+		this.setState({
+			dirtCount: this.state.dirtCount + 1
+		});
+		ReactDOM.render(
+			this.renderDirtForm(),
+			document.getElementById("dirt-form")
+		);
+	};
+
+	setDirtPatchCoordinates = e => {
+
+		e.preventDefault();
+		console.log(this.getUserInputX())
+		// let dirt = {
+		// 	x: 0,
+		// 	y: 0
+		// };
+		// const target = e.target;
+		// const value = target.value;
+		// const name = target.name;
+
+		// this.setState({
+		// 	dirtCoordinates: {
+		// 		x: this.getUserInputX,
+		// 		y: this.getUserInputY
+		// 	}
+		// })
+		//
+		// this.setState({
+		// 	dirtPatches: this.state.dirtPatches.concat([
+		// 		{ x: parseInt(([name]: value), 0), y: parseInt(([name]: value), 0) }
+		// 	])
+		// });
+	};
+
+	getUserInputX(e) {
+		// console.log(e.target.value)
+		// return e.target.value;
+		this.setState({
+			dirtCoordinates: {
+				x: parseInt(e.target.value, 0),
+				y: this.state.dirtCoordinates.y,
+				opacity: this.state.dirtCoordinates.opacity
+			}
+		})
+	}
+
+
+	getUserInputY(e) {
+		this.setState({
+			dirtCoordinates: {
+				y: parseInt(e.target.value, 0),
+				x: this.state.dirtCoordinates.x,
+				opacity: 1
+			}
+		})
+	}
+
+	renderDirtForm() {
+		let patches = [];
+		for (let i = 0; i <= this.state.dirtCount; i++) {
+			patches.push(
+				<React.Fragment key={i}>
+					<p>Patch {i + 1}</p>
+					<div>
+						<label htmlFor="">X coordinates</label>
+						<input onChange={(e) => this.getUserInputX(e)} name="x" type="number" />
+					</div>
+					<div>
+						<label htmlFor="">Y coordinates</label>
+						<input onChange={(e) => this.getUserInputY(e)} name="y" type="number" />
+					</div>
+					<button onClick={this.setDirtPatchCoordinates}>Submit</button>
+				</React.Fragment>
+			);
+		}
+		return patches;
+	}
 
 	componentDidMount() {
 		window.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -123,12 +210,11 @@ class App extends Component {
 				this.setState({
 					robotCoordinates: {
 						y: 0,
-						x: this.state.robotCoordinates.x
+						x: this.state.robotCoordinates.x,
 					}
 				});
 			}
 		} else if (e.keyCode === 37 || e.keyCode === 65) {
-			console.log("LEFT");
 			this.setState({
 				robotCoordinates: {
 					x: this.state.robotCoordinates.x - 1,
@@ -144,7 +230,6 @@ class App extends Component {
 				});
 			}
 		} else if (e.keyCode === 39 || e.keyCode === 68) {
-			console.log("RIGHT");
 			this.setState({
 				robotCoordinates: {
 					x: this.state.robotCoordinates.x + 1,
@@ -163,34 +248,43 @@ class App extends Component {
 	};
 
 	render() {
-		const roomDimensionsWidth = this.state.roomDimensions.x * this.blockSize;
-		const roomDimensionsHeight = this.state.roomDimensions.y * this.blockSize;
-		const robotYCoordinates = this.state.robotCoordinates.y * this.blockSize;
-		const robotXCoordinates = this.state.robotCoordinates.x * this.blockSize;
+		const roomDimensionsWidth = this.state.roomDimensions.x;
+		const roomDimensionsHeight = this.state.roomDimensions.y;
+		const robotYCoordinates = this.state.robotCoordinates.y;
+		const robotXCoordinates = this.state.robotCoordinates.x;
+		const dirtXCoordinates = this.state.dirtCoordinates.x;
+		const dirtYCoordinates = this.state.dirtCoordinates.y;
 
-		// this.moveRobot();
+		// this.clearDirt();
 
 		return (
 			<div className="container">
 				<div className="settings">
 					<RoomSettings
-						roomDimensionsWidth={roomDimensionsWidth}
-						roomDimensionsHeight={roomDimensionsHeight}
+						roomDimensionsWidth={this.state.roomDimensions.x * this.blockSize}
+						roomDimensionsHeight={this.state.roomDimensions.y * this.blockSize}
 						setRoomWidthDimensions={this.setRoomWidthDimensions}
 						setRoomHeightDimensions={this.setRoomHeightDimensions}
 					/>
 					<hr />
 					<RoombaSettings
-						robotYCoordinates={robotYCoordinates}
-						robotXCoordinates={robotXCoordinates}
+						robotYCoordinates={robotYCoordinates * this.blockSize}
+						robotXCoordinates={robotXCoordinates * this.blockSize}
 						setRobotXCoordinates={this.setRobotXCoordinates}
 						setRobotYCoordinates={this.setRobotYCoordinates}
 						blockSize={this.blockSize}
 					/>
+					<hr />
+					{/* <DirtSettings /> */}
+					<button onClick={this.addDirtPatchForm}>Add patch</button>
+					<form action="" id="dirt-form" />
 				</div>
 				<Room
-					roomDimensionsWidth={roomDimensionsWidth}
-					roomDimensionsHeight={roomDimensionsHeight}
+					roomDimensionsWidth={roomDimensionsWidth * this.blockSize}
+					roomDimensionsHeight={roomDimensionsHeight * this.blockSize}
+					dirtXCoordinates={dirtXCoordinates}
+					dirtYCoordinates={dirtYCoordinates}
+					dirtOpacity={this.state.dirtCoordinates.opacity}
 					robotYCoordinates={robotYCoordinates}
 					robotXCoordinates={robotXCoordinates}
 					blockSize={this.blockSize}

@@ -4,7 +4,7 @@ $border-width: 40px;
 .container {
   height: 100%;
   margin: 40px auto;
-  max-width: 1300px;
+  // max-width: 1300px;
   display: flex;
   width: 90%;
   justify-content: space-between;
@@ -21,6 +21,7 @@ $border-width: 40px;
   background-color: lightpink;
   position: relative;
   border: 20px solid grey;
+  // overflow: hidden;
 
   &::after,
   &::before {
@@ -46,8 +47,18 @@ $border-width: 40px;
 
 .blocks {
   outline: 1px solid black;
-  // height: $block;
-  // width: $block;
+}
+
+.dirt-patch {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    background-color: black;
+    border-radius: 50%;
+  }
 }
 
 .roomba {

@@ -11,7 +11,7 @@ class DirtPatch extends React.Component {
 			this.props.robotYCoordinates === this.props.dirtYCoordinates &&
 			this.props.robotXCoordinates === this.props.dirtXCoordinates
 		) {
-			console.log("????")
+			console.log("Cleaning");
 			this.opacity = 0;
 		}
 	};
@@ -19,11 +19,15 @@ class DirtPatch extends React.Component {
 	render() {
 		this.clearDirt();
 
-		const { blockSize, dirtXCoordinates, dirtYCoordinates, dirtOpacity } = this.props;
+		const {
+			blockSize,
+			dirtXCoordinates,
+			dirtYCoordinates,
+			dirtOpacity
+		} = this.props;
 		return (
 			<div
 				className="dirt-patch"
-				ref={this.dirtRef}
 				style={{
 					width: blockSize,
 					height: blockSize,

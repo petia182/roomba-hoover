@@ -22,13 +22,16 @@ class App extends Component {
 			dirtCoordinates: {
 				x: -1,
 				y: -1,
-				opacity: 0,
+				opacity: 0
 			},
-			dirtPatches: [],
+			dirtPatches: {},
 			dirtCount: 0
 		};
 		this.blockSize = 60;
 	}
+
+	dirtXcoordinate = React.createRef();
+	dirtYcoordinate = React.createRef();
 
 	setRoomWidthDimensions = e => {
 		this.setState({
@@ -60,7 +63,7 @@ class App extends Component {
 		this.setState({
 			robotCoordinates: {
 				x: parseInt(e.target.value, 0),
-				y: this.state.robotCoordinates.y,
+				y: this.state.robotCoordinates.y
 			}
 		});
 	};
@@ -69,7 +72,7 @@ class App extends Component {
 		this.setState({
 			robotCoordinates: {
 				y: parseInt(e.target.value, 0),
-				x: this.state.robotCoordinates.x,
+				x: this.state.robotCoordinates.x
 			}
 		});
 	};
@@ -93,87 +96,32 @@ class App extends Component {
 		return blocks;
 	};
 
-	addDirtPatchForm = e => {
+	// addDirtPatchForm = e => {
+	// 	e.preventDefault();
+	// 	console.log("click");
+	// 	this.setState({
+	// 		dirtCount: this.state.dirtCount + 1
+	// 	});
+	// 	ReactDOM.render(
+	// 		this.renderDirtForm(),
+	// 		document.getElementById("dirt-form")
+	// 	);
+	// };
+
+	createDirt = e => {
 		e.preventDefault();
-		console.log("click");
+
+		const dirtPatches = { ...this.state.dirt };
+		const dirt = {
+			x: this.dirtXcoordinate.current.value,
+			y: this.dirtXcoordinate.current.value
+		};
+
+		dirtPatches[`dirt${Date.now()}`] = dirt;
 		this.setState({
-			dirtCount: this.state.dirtCount + 1
+			dirtPatches
 		});
-		ReactDOM.render(
-			this.renderDirtForm(),
-			document.getElementById("dirt-form")
-		);
 	};
-
-	setDirtPatchCoordinates = e => {
-
-		e.preventDefault();
-		console.log(this.getUserInputX())
-		// let dirt = {
-		// 	x: 0,
-		// 	y: 0
-		// };
-		// const target = e.target;
-		// const value = target.value;
-		// const name = target.name;
-
-		// this.setState({
-		// 	dirtCoordinates: {
-		// 		x: this.getUserInputX,
-		// 		y: this.getUserInputY
-		// 	}
-		// })
-		//
-		// this.setState({
-		// 	dirtPatches: this.state.dirtPatches.concat([
-		// 		{ x: parseInt(([name]: value), 0), y: parseInt(([name]: value), 0) }
-		// 	])
-		// });
-	};
-
-	getUserInputX(e) {
-		// console.log(e.target.value)
-		// return e.target.value;
-		this.setState({
-			dirtCoordinates: {
-				x: parseInt(e.target.value, 0),
-				y: this.state.dirtCoordinates.y,
-				opacity: this.state.dirtCoordinates.opacity
-			}
-		})
-	}
-
-
-	getUserInputY(e) {
-		this.setState({
-			dirtCoordinates: {
-				y: parseInt(e.target.value, 0),
-				x: this.state.dirtCoordinates.x,
-				opacity: 1
-			}
-		})
-	}
-
-	renderDirtForm() {
-		let patches = [];
-		for (let i = 0; i <= this.state.dirtCount; i++) {
-			patches.push(
-				<React.Fragment key={i}>
-					<p>Patch {i + 1}</p>
-					<div>
-						<label htmlFor="">X coordinates</label>
-						<input onChange={(e) => this.getUserInputX(e)} name="x" type="number" />
-					</div>
-					<div>
-						<label htmlFor="">Y coordinates</label>
-						<input onChange={(e) => this.getUserInputY(e)} name="y" type="number" />
-					</div>
-					<button onClick={this.setDirtPatchCoordinates}>Submit</button>
-				</React.Fragment>
-			);
-		}
-		return patches;
-	}
 
 	componentDidMount() {
 		window.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -210,7 +158,7 @@ class App extends Component {
 				this.setState({
 					robotCoordinates: {
 						y: 0,
-						x: this.state.robotCoordinates.x,
+						x: this.state.robotCoordinates.x
 					}
 				});
 			}
@@ -255,7 +203,7 @@ class App extends Component {
 		const dirtXCoordinates = this.state.dirtCoordinates.x;
 		const dirtYCoordinates = this.state.dirtCoordinates.y;
 
-		// this.clearDirt();
+		// this.createDirt();
 
 		return (
 			<div className="container">
@@ -275,9 +223,7 @@ class App extends Component {
 						blockSize={this.blockSize}
 					/>
 					<hr />
-					{/* <DirtSettings /> */}
-					<button onClick={this.addDirtPatchForm}>Add patch</button>
-					<form action="" id="dirt-form" />
+					<DirtSettings />
 				</div>
 				<Room
 					roomDimensionsWidth={roomDimensionsWidth * this.blockSize}

@@ -13,40 +13,42 @@ class Room extends React.Component {
 			blockSize,
 			dirtXCoordinates,
 			dirtYCoordinates,
-			dirtOpacity
+			dirtOpacity,
+			addDirt
 		} = this.props;
 		return (
 			// <div className="coordinate-system-wrapper">
+			<div
+				className="coordinate-system"
+				style={{
+					width: parseInt(roomDimensionsWidth, 0),
+					height: parseInt(roomDimensionsHeight, 0)
+				}}
+			>
+				{renderBlock}
 				<div
-					className="coordinate-system"
+					className="roomba"
 					style={{
-						width: parseInt(roomDimensionsWidth, 0),
-						height: parseInt(roomDimensionsHeight, 0)
+						width: blockSize,
+						height: blockSize,
+						bottom: robotYCoordinates * blockSize,
+						left: robotXCoordinates * blockSize
 					}}
 				>
-					{renderBlock}
-					<div
-						className="roomba"
-						style={{
-							width: blockSize,
-							height: blockSize,
-							bottom: robotYCoordinates * blockSize,
-							left: robotXCoordinates * blockSize
-						}}
-					>
-						Roomba
-					</div>
-					<DirtPatch
-						blockSize={blockSize}
-						dirtXCoordinates={dirtXCoordinates}
-						dirtYCoordinates={dirtYCoordinates}
-						robotXCoordinates={robotXCoordinates}
-						robotYCoordinates={robotYCoordinates}
-						dirtOpacity={dirtOpacity}
-					/>
-					<p className="x-axis">X</p>
-					<p className="y-axis">Y</p>
+					Roomba
 				</div>
+				<DirtPatch
+					blockSize={blockSize}
+					dirtXCoordinates={dirtXCoordinates}
+					dirtYCoordinates={dirtYCoordinates}
+					robotXCoordinates={robotXCoordinates}
+					robotYCoordinates={robotYCoordinates}
+					dirtOpacity={dirtOpacity}
+					addDirt={addDirt}
+				/>
+				<p className="x-axis">X</p>
+				<p className="y-axis">Y</p>
+			</div>
 			// </div>
 		);
 	}

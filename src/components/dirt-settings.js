@@ -3,25 +3,34 @@ import ReactDOM from "react-dom";
 
 class DirtSettings extends React.Component {
 	state = {
-		click: 1
+		click: 1,
+		opacity: 0
 	};
+	//
+	// renderForm() {
+	// 	// let numberOfClicks = 0;
+	// 	let patches = [];
+	// 	for (let i = 1; i <= this.state.click; i++) {
+	// 		patches.push(<React.Fragment key={i} />);
+	// 	}
+	// 	return patches;
+	// 	// return (
+	// 	//
+	// 	// );
+	// }
 
-	handleClick = e => {
-		e.preventDefault();
-		console.log("click");
+	handleClick = () => {
 		this.setState({
-			click: this.state.click + 1
+			opacity: 1
 		});
-		ReactDOM.render(this.renderForm(), document.getElementById("dirt-form"));
 	};
 
-	renderForm() {
-		// let numberOfClicks = 0;
-		let patches = [];
-		for (let i = 1; i <= this.state.click; i++) {
-			patches.push(
-				<React.Fragment key={i}>
-					<p>Patch {i}</p>
+	render() {
+		return (
+			<div>
+				<button onClick={this.handleClick}>Add patch</button>
+				<form style={{ opacity: this.state.opacity }} action="">
+					<p>Patch</p>
 					<div>
 						<label htmlFor="">X coordinates</label>
 						<input type="number" />
@@ -30,22 +39,8 @@ class DirtSettings extends React.Component {
 						<label htmlFor="">Y coordinates</label>
 						<input type="number" />
 					</div>
-				</React.Fragment>
-			);
-		}
-		return patches;
-		// return (
-		//
-		// );
-	}
-
-	render() {
-		return (
-			<React.Fragment>
-				<p>Add dirt patches</p>
-				<button onClick={this.handleClick}>Add patch</button>
-				<form action="" id="dirt-form" />
-			</React.Fragment>
+				</form>
+			</div>
 		);
 	}
 }

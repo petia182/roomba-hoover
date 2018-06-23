@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 import Room from './components/room';
 import RoomSettings from './components/room-settings';
@@ -11,8 +10,8 @@ class App extends Component {
     super();
     this.state = {
       roomDimensions: {
-        x: 5,
-        y: 5,
+        x: 7,
+        y: 7,
       },
       robotCoordinates: {
         x: 0,
@@ -100,6 +99,7 @@ class App extends Component {
 
     const dirtPatches = { ...this.state.dirtPatches };
     const dirt = {
+      id: `dirt${Date.now()}`,
       x: this.dirtXcoordinate.current.value,
       y: this.dirtYcoordinate.current.value,
     };
@@ -117,6 +117,14 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp.bind(this));
   }
+
+  deleteDirtPatch = key => {
+    const dirtPatches = { ...this.state.dirtPatches };
+    delete dirtPatches[key];
+    this.setState({
+      dirtPatches,
+    });
+  };
 
   handleKeyUp = e => {
     if (e.keyCode === 38 || e.keyCode === 87) {
@@ -187,17 +195,13 @@ class App extends Component {
     const roomDimensionsHeight = this.state.roomDimensions.y;
     const robotYCoordinates = this.state.robotCoordinates.y;
     const robotXCoordinates = this.state.robotCoordinates.x;
-    // const dirtXCoordinates = this.state.dirtCoordinates.x;
-    // const dirtYCoordinates = this.state.dirtCoordinates.y;
-
-    // this.createDirt();
 
     return (
       <div className="container">
         <div className="settings">
           <RoomSettings
-            roomDimensionsWidth={this.state.roomDimensions.x * this.blockSize}
-            roomDimensionsHeight={this.state.roomDimensions.y * this.blockSize}
+            roomDimensionsWidth={this.state.roomDimensions.x}
+            roomDimensionsHeight={this.state.roomDimensions.y}
             setRoomWidthDimensions={this.setRoomWidthDimensions}
             setRoomHeightDimensions={this.setRoomHeightDimensions}
           />
@@ -210,29 +214,30 @@ class App extends Component {
             blockSize={this.blockSize}
           />
           <hr />
-          <p>Add Dirt</p>
-          <form style={{ opacity: this.state.opacity }} action="">
-            <p>Patch</p>
-            <div>
-              <label htmlFor="">X coordinates</label>
+          <div className="dirt-settings">
+            <p>Add Dirt</p>
+            <div className="form-group">
+              <label htmlFor="">X: </label>
               <input ref={this.dirtXcoordinate} type="number" />
             </div>
-            <div>
-              <label htmlFor="">Y coordinates</label>
+            <div className="form-group">
+              <label htmlFor="">Y: </label>
               <input ref={this.dirtYcoordinate} type="number" />
             </div>
-            <button onClick={this.addDirtPatchForm} type="submit">
+            <button
+              class="add-patch"
+              onClick={this.addDirtPatchForm}
+              type="submit"
+            >
               Add Dirt Patch
             </button>
-          </form>
+          </div>
         </div>
         <Room
           roomDimensionsWidth={roomDimensionsWidth * this.blockSize}
           roomDimensionsHeight={roomDimensionsHeight * this.blockSize}
           dirtPatches={this.state.dirtPatches}
-          // dirtXCoordinates={dirtXCoordinates}
-          // dirtYCoordinates={dirtYCoordinates}
-          // dirtOpacity={this.state.dirtCoordinates.opacity}
+          deleteDirtPatch={this.deleteDirtPatch}
           robotYCoordinates={robotYCoordinates}
           robotXCoordinates={robotXCoordinates}
           blockSize={this.blockSize}

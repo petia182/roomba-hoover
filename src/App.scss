@@ -1,6 +1,10 @@
 $block: 60px;
 $border-width: 40px;
 
+body {
+  // background-color: lightgrey;
+}
+
 .container {
   height: 100%;
   margin: 40px auto;
@@ -13,6 +17,15 @@ $border-width: 40px;
 .settings {
   width: calc(30% - 40px);
   margin-right: 20vw;
+}
+
+.instructions {
+  background-color: #FFEDBC;
+  padding: 40px;
+
+  h1 {
+    margin-top: 0;
+  }
 }
 
 .coordinate-system-wrapper {
@@ -30,21 +43,17 @@ $border-width: 40px;
   &::after {
     height: calc(100% + #{$border-width * 1.5});
     width: 1px;
-    background-color: red;
   }
 
   &::before {
     width: calc(100% + #{$border-width * 1.5});
     height: 1px;
-    background-color: blue;
   }
  }
 
 .coordinate-system {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
-  background-color: lightpink;
   position: relative;
   border: 20px solid grey;
   overflow: hidden;
@@ -68,7 +77,7 @@ $border-width: 40px;
 
 .roomba {
   position: absolute;
-  background-color: red;
+  background-color: #F68178;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -77,12 +86,32 @@ $border-width: 40px;
   font-size: 12px;
 }
 
+.room-coordinates,
 .roomba-coordinates {
-  color: orange;
+  padding: 10px 0 10px 0;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+  }
 }
 
-.room-coordinates {
-  color: purple;
+.room-settings,
+.roomba-settings,
+.dirt-settings {
+  padding: 10px 0 20px 0;
+
+  label {
+    margin-right: 10px;
+  }
+
+  .form-group {
+    margin-top: 10px;
+  }
 }
 
 .y-axis {
@@ -97,4 +126,12 @@ $border-width: 40px;
   margin: 0;
   bottom: calc(-#{$border-width} - 9px);
   right: -$border-width;
+}
+
+.add-patch {
+  appearance: none;
+  border-radius: 0;
+  padding: 10px;
+  background-color: #FFEDBC;
+  margin-top: 20px;
 }

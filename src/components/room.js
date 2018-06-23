@@ -11,6 +11,7 @@ class Room extends React.Component {
       robotYCoordinates,
       renderBlock,
       blockSize,
+      deleteDirtPatch,
       // dirtXCoordinates,
       // dirtYCoordinates,
       // dirtOpacity,
@@ -39,13 +40,19 @@ class Room extends React.Component {
         >
           Roomba
         </div>
-        {Object.keys(dirtPatches).map(patch => {
-          // console.log(dirtPatches[patch]);
+        {Object.keys(dirtPatches).map((patch, i) => {
+          // console.log(dirtPatches);
           return (
             <DirtPatch
+              key={dirtPatches[patch].id}
+              partch={dirtPatches[patch]}
+              dirtPatches={dirtPatches}
               dirtXCoordinates={parseInt(dirtPatches[patch].x, 0)}
               dirtYCoordinates={parseInt(dirtPatches[patch].y, 0)}
               blockSize={blockSize}
+              robotXCoordinates={robotXCoordinates}
+              robotYCoordinates={robotYCoordinates}
+              deleteDirtPatch={deleteDirtPatch}
             />
           );
         })}

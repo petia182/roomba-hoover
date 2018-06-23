@@ -1,25 +1,25 @@
 import React from 'react';
 
 class DirtPatch extends React.Component {
-  constructor(props) {
-    super();
-    // this.opacity = 1;
-  }
-
   clearDirt = () => {
-    if (
-      this.props.robotYCoordinates === this.props.dirtYCoordinates &&
-      this.props.robotXCoordinates === this.props.dirtXCoordinates
-    ) {
-      console.log('Cleaning');
-      // this.opacity = 0;
-    }
+    Object.keys(this.props.dirtPatches).map(patch => {
+      if (
+        this.props.robotYCoordinates ===
+          parseInt(this.props.dirtPatches[patch].y, 0) &&
+        this.props.robotXCoordinates ===
+          parseInt(this.props.dirtPatches[patch].x, 0)
+      ) {
+        const id = this.props.dirtPatches[patch].id;
+        this.props.deleteDirtPatch(id);
+      }
+    });
   };
 
-  render() {
+  componentDidUpdate() {
     this.clearDirt();
-    console.log(this.props.blockSize);
+  }
 
+  render() {
     const { blockSize, dirtXCoordinates, dirtYCoordinates } = this.props;
     return (
       <div

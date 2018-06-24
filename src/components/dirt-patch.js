@@ -32,7 +32,12 @@ class DirtPatch extends React.Component {
           opacity: this.opacity,
         }}
       >
-        <span style={{ width: blockSize / 2, height: blockSize / 2 }} />
+        <img
+          src="https://www.kotacreative.co.uk/codepen/dirt.png"
+          alt=""
+          style={{ width: blockSize / 1.2 }}
+        />
+        {/* <span style={{ width: blockSize / 2, height: blockSize / 2 }} /> */}
       </div>
     );
   }

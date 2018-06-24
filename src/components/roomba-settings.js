@@ -20,14 +20,12 @@ class RoombaSettings extends React.Component {
           </p>
         </div>
         <div className="roomba-settings">
-          <div className="form-group">
-            <label htmlFor="">X:</label>
-            <input onChange={setRobotXCoordinates} type="number" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="">Y:</label>
-            <input onChange={setRobotYCoordinates} type="number" />
-          </div>
+          Set Roomba starting point
+          <br />
+          <label htmlFor="">X:</label>
+          <input onChange={setRobotXCoordinates} type="number" max="9" />
+          <label htmlFor="">Y:</label>
+          <input onChange={setRobotYCoordinates} type="number" max="9" />
         </div>
       </React.Fragment>
     );

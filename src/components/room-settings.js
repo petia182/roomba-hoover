@@ -13,8 +13,10 @@ class RoomSettings extends React.Component {
         <div className="instructions">
           <h1>Instructions</h1>
           <ol>
-            <li>(Optional) Set the coordinates of the room</li>
-            <li>(Optional) Set the starting point of the roomba</li>
+            {/* <li>(Optional) Set the coordinates of the room (min 0, max 10)</li>
+            <li>
+              (Optional) Set the starting point of the roomba (min 0, max 9)
+            </li> */}
             <li>Set the coordinates of 0 or more dirt patches</li>
             <li>Move the roomba using the arrow keys or (A,W,S,D)</li>
           </ol>
@@ -29,22 +31,14 @@ class RoomSettings extends React.Component {
         <div className="room-settings">
           Set Room Dimensions (number)
           <br />
-          <div className="form-group">
-            <label htmlFor="room-width-dimensions">X:</label>
-            <input
-              onChange={setRoomWidthDimensions}
-              id="room-width-dimensions"
-              type="number"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="room-height-dimensions">Y:</label>
-            <input
-              onChange={setRoomHeightDimensions}
-              id="room-height-dimensions"
-              type="number"
-            />
-          </div>
+          {/* <div className="form-group"> */}
+          <label htmlFor="room-width-dimensions">X:</label>
+          <input onChange={setRoomWidthDimensions} type="number" max="10" />
+          {/* </div> */}
+          {/* <div className="form-group"> */}
+          <label htmlFor="room-height-dimensions">Y:</label>
+          <input onChange={setRoomHeightDimensions} type="number" max="10" />
+          {/* </div> */}
         </div>
       </React.Fragment>
     );

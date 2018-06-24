@@ -12,15 +12,10 @@ class Room extends React.Component {
       renderBlock,
       blockSize,
       deleteDirtPatch,
-      // dirtXCoordinates,
-      // dirtYCoordinates,
-      // dirtOpacity,
-      // addDirt,
       dirtPatches,
     } = this.props;
 
     return (
-      // <div className="coordinate-system-wrapper">
       <div
         className="coordinate-system"
         style={{
@@ -38,10 +33,15 @@ class Room extends React.Component {
             left: robotXCoordinates * blockSize,
           }}
         >
-          Roomba
+          <img
+            src="https://www.kotacreative.co.uk/codepen/roomba.png"
+            alt=""
+            style={{
+              width: blockSize,
+            }}
+          />
         </div>
         {Object.keys(dirtPatches).map((patch, i) => {
-          // console.log(dirtPatches);
           return (
             <DirtPatch
               key={dirtPatches[patch].id}
@@ -56,17 +56,9 @@ class Room extends React.Component {
             />
           );
         })}
-        {/* <DirtPatch
-            blockSize={blockSize}
-            dirtXCoordinates={dirtXCoordinates}
-            dirtYCoordinates={dirtYCoordinates}
-            robotXCoordinates={robotXCoordinates}
-            robotYCoordinates={robotYCoordinates}
-          /> */}
         <p className="x-axis">X</p>
         <p className="y-axis">Y</p>
       </div>
-      // </div>
     );
   }
 }

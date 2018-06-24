@@ -17,13 +17,9 @@ class App extends Component {
         x: 0,
         y: 0,
       },
-      // dirtCoordinates: {
-      //   x: -1,
-      //   y: -1,
-      //   opacity: 0,
-      // },
       dirtPatches: {},
       dirtCount: 0,
+      // blockSize: 60,
     };
     this.blockSize = 60;
   }
@@ -32,47 +28,83 @@ class App extends Component {
   dirtYcoordinate = React.createRef();
 
   setRoomWidthDimensions = e => {
-    this.setState({
-      roomDimensions: {
-        x: parseInt(e.target.value, 0),
-        y: this.state.roomDimensions.y,
-      },
-      robotCoordinates: {
-        x: 0,
-        y: 0,
-      },
-    });
+    let max = parseInt(e.target.max, 0);
+    let value = parseInt(e.target.value, 0);
+    if (value > max) {
+      this.setState({
+        roomDimensions: {
+          x: max,
+          y: this.state.roomDimensions.y,
+        },
+      });
+    } else {
+      this.setState({
+        roomDimensions: {
+          x: value,
+          y: this.state.roomDimensions.y,
+        },
+      });
+    }
   };
 
   setRoomHeightDimensions = e => {
-    this.setState({
-      roomDimensions: {
-        y: parseInt(e.target.value, 0),
-        x: this.state.roomDimensions.x,
-      },
-      robotCoordinates: {
-        x: 0,
-        y: 0,
-      },
-    });
+    let max = parseInt(e.target.max, 0);
+    let value = parseInt(e.target.value, 0);
+    if (value > 10) {
+      this.setState({
+        roomDimensions: {
+          y: max,
+          x: this.state.roomDimensions.x,
+        },
+      });
+    } else {
+      this.setState({
+        roomDimensions: {
+          y: value,
+          x: this.state.roomDimensions.x,
+        },
+      });
+    }
   };
 
   setRobotXCoordinates = e => {
-    this.setState({
-      robotCoordinates: {
-        x: parseInt(e.target.value, 0),
-        y: this.state.robotCoordinates.y,
-      },
-    });
+    let max = parseInt(e.target.max, 0);
+    let value = parseInt(e.target.value, 0);
+    if (value > max) {
+      this.setState({
+        robotCoordinates: {
+          x: max,
+          y: this.state.robotCoordinates.y,
+        },
+      });
+    } else {
+      this.setState({
+        robotCoordinates: {
+          x: value,
+          y: this.state.robotCoordinates.y,
+        },
+      });
+    }
   };
 
   setRobotYCoordinates = e => {
-    this.setState({
-      robotCoordinates: {
-        y: parseInt(e.target.value, 0),
-        x: this.state.robotCoordinates.x,
-      },
-    });
+    let max = parseInt(e.target.max, 0);
+    let value = parseInt(e.target.value, 0);
+    if (value > max) {
+      this.setState({
+        robotCoordinates: {
+          y: parseInt(e.target.value, 0),
+          x: this.state.robotCoordinates.x,
+        },
+      });
+    } else {
+      this.setState({
+        robotCoordinates: {
+          y: value,
+          x: this.state.robotCoordinates.x,
+        },
+      });
+    }
   };
 
   renderBlock = (roomDimensionsWidth, roomDimensionsHeight) => {
@@ -216,16 +248,12 @@ class App extends Component {
           <hr />
           <div className="dirt-settings">
             <p>Add Dirt</p>
-            <div className="form-group">
-              <label htmlFor="">X: </label>
-              <input ref={this.dirtXcoordinate} type="number" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Y: </label>
-              <input ref={this.dirtYcoordinate} type="number" />
-            </div>
+            <label htmlFor="">X: </label>
+            <input ref={this.dirtXcoordinate} type="number" />
+            <label htmlFor="">Y: </label>
+            <input ref={this.dirtYcoordinate} type="number" />
             <button
-              class="add-patch"
+              className="add-patch"
               onClick={this.addDirtPatchForm}
               type="submit"
             >

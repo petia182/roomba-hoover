@@ -1,5 +1,7 @@
 # Hoover challenge
 
+Live app: http://roomba.netlify.com/
+
 ### Requirements
 
 Write a web application that drives an imaginary robotic hoover (much like a Roomba) around an equally imaginary room based on:
@@ -8,7 +10,7 @@ Write a web application that drives an imaginary robotic hoover (much like a Roo
 - an initial hoover position (X and Y coordinates like patches of dirt)
 
 - locations of patches of dirt, also defined by X and Y coordinates identifying the bottom left corner of those grid positions.
-The room will be rectangular, has no obstacles (except the room walls), no doors and all locations in the room will be clean (hoovering has no effect) except for the locations of the patches of dirt presented in the program input.
+  The room will be rectangular, has no obstacles (except the room walls), no doors and all locations in the room will be clean (hoovering has no effect) except for the locations of the patches of dirt presented in the program input.
 
 Placing the hoover on a patch of dirt ("hoovering") removes the patch of dirt so that patch is then clean for the remainder of the program run. The hoover is always on - there is no need to enable it.
 

@@ -17,9 +17,7 @@ class App extends Component {
 				x: 0,
 				y: 0
 			},
-			dirtPatches: {},
-			dirtCount: 0
-			// blockSize: 60,
+			dirtPatches: {}
 		};
 		this.blockSize = 60;
 	}
@@ -82,13 +80,49 @@ class App extends Component {
 
 	addDirtPatchForm = e => {
 		e.preventDefault();
-
-		const dirtPatches = { ...this.state.dirtPatches };
-		const dirt = {
+		const max = this.dirtXcoordinate.current.max;
+		const min = this.dirtXcoordinate.current.min;
+		let dirt = {
 			id: `dirt${Date.now()}`,
 			x: this.dirtXcoordinate.current.value,
 			y: this.dirtYcoordinate.current.value
 		};
+
+		const dirtPatches = { ...this.state.dirtPatches };
+
+		console.log(this.dirtYcoordinate.current.value);
+		console.log(this.dirtXcoordinate.current.value);
+
+		if (this.dirtXcoordinate.current.value === "") {
+			dirt = {
+				id: `dirt${Date.now()}`,
+				x: 0,
+				y: parseInt(this.dirtYcoordinate.current.value, 0)
+			};
+		} else if (this.dirtYcoordinate.current.value === "") {
+			dirt = {
+				id: `dirt${Date.now()}`,
+				x: parseInt(this.dirtXcoordinate.current.value, 0),
+				y: 0
+			};
+		} else if (
+			this.dirtYcoordinate.current.value === "" &&
+			this.dirtXcoordinate.current.value === ""
+		) {
+			dirt = {
+				id: `dirt${Date.now()}`,
+				x: 0,
+				y: 0
+			};
+		} else {
+			dirt = {
+				id: `dirt${Date.now()}`,
+				x: parseInt(this.dirtXcoordinate.current.value, 0),
+				y: parseInt(this.dirtYcoordinate.current.value, 0)
+			};
+		}
+
+		// }
 
 		dirtPatches[`dirt${Date.now()}`] = dirt;
 		this.setState({
@@ -235,9 +269,19 @@ class App extends Component {
 					<div className="dirt-settings">
 						<p>Add Dirt Patches</p>
 						<label htmlFor="">X: </label>
-						<input ref={this.dirtXcoordinate} type="number" min="0" max="10" />
+						<input
+							ref={this.dirtXcoordinate}
+							type="number"
+							min="0"
+							max={this.state.roomDimensions.x - 1}
+						/>
 						<label htmlFor="">Y: </label>
-						<input ref={this.dirtYcoordinate} type="number" min="0" max="10" />
+						<input
+							ref={this.dirtYcoordinate}
+							type="number"
+							min="0"
+							max={this.state.roomDimensions.y - 1}
+						/>
 						<button
 							className="add-patch"
 							onClick={this.addDirtPatchForm}

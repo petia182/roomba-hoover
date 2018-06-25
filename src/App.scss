@@ -39,6 +39,9 @@ body {
 
 .blocks {
   outline: 1px solid black;
+  &:nth-child(odd) {
+    // background-color: lightgrey;
+  }
 }
 
 .dirt-patch {

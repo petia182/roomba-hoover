@@ -29,11 +29,19 @@ class App extends Component {
 
   setRoomWidthDimensions = e => {
     let max = parseInt(e.target.max, 0);
+    let min = parseInt(e.target.min, 0);
     let value = parseInt(e.target.value, 0);
     if (value > max) {
       this.setState({
         roomDimensions: {
           x: max,
+          y: this.state.roomDimensions.y,
+        },
+      });
+    } else if (value < min) {
+      this.setState({
+        roomDimensions: {
+          x: min,
           y: this.state.roomDimensions.y,
         },
       });
@@ -49,11 +57,19 @@ class App extends Component {
 
   setRoomHeightDimensions = e => {
     let max = parseInt(e.target.max, 0);
+    let min = parseInt(e.target.min, 0);
     let value = parseInt(e.target.value, 0);
-    if (value > 10) {
+    if (value > max) {
       this.setState({
         roomDimensions: {
           y: max,
+          x: this.state.roomDimensions.x,
+        },
+      });
+    } else if (value < min) {
+      this.setState({
+        roomDimensions: {
+          y: min,
           x: this.state.roomDimensions.x,
         },
       });
@@ -69,11 +85,19 @@ class App extends Component {
 
   setRobotXCoordinates = e => {
     let max = parseInt(e.target.max, 0);
+    let min = parseInt(e.target.min, 0);
     let value = parseInt(e.target.value, 0);
     if (value > max) {
       this.setState({
         robotCoordinates: {
           x: max,
+          y: this.state.robotCoordinates.y,
+        },
+      });
+    } else if (value < min) {
+      this.setState({
+        robotCoordinates: {
+          x: min,
           y: this.state.robotCoordinates.y,
         },
       });
@@ -89,11 +113,19 @@ class App extends Component {
 
   setRobotYCoordinates = e => {
     let max = parseInt(e.target.max, 0);
+    let min = parseInt(e.target.min, 0);
     let value = parseInt(e.target.value, 0);
     if (value > max) {
       this.setState({
         robotCoordinates: {
-          y: parseInt(e.target.value, 0),
+          y: max,
+          x: this.state.robotCoordinates.x,
+        },
+      });
+    } else if (value < min) {
+      this.setState({
+        robotCoordinates: {
+          y: min,
           x: this.state.robotCoordinates.x,
         },
       });

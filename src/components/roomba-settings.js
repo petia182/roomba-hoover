@@ -23,9 +23,19 @@ class RoombaSettings extends React.Component {
           Set Roomba starting point
           <br />
           <label htmlFor="">X:</label>
-          <input onChange={setRobotXCoordinates} type="number" max="9" />
+          <input
+            onChange={setRobotXCoordinates}
+            type="number"
+            min="0"
+            max="9"
+          />
           <label htmlFor="">Y:</label>
-          <input onChange={setRobotYCoordinates} type="number" max="9" />
+          <input
+            onChange={setRobotYCoordinates}
+            type="number"
+            min="0"
+            max="9"
+          />
         </div>
       </React.Fragment>
     );

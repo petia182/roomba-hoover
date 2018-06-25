@@ -31,14 +31,20 @@ class RoomSettings extends React.Component {
         <div className="room-settings">
           Set Room Dimensions (number)
           <br />
-          {/* <div className="form-group"> */}
           <label htmlFor="room-width-dimensions">X:</label>
-          <input onChange={setRoomWidthDimensions} type="number" max="10" />
-          {/* </div> */}
-          {/* <div className="form-group"> */}
+          <input
+            onChange={setRoomWidthDimensions}
+            type="number"
+            min="1"
+            max="10"
+          />
           <label htmlFor="room-height-dimensions">Y:</label>
-          <input onChange={setRoomHeightDimensions} type="number" max="10" />
-          {/* </div> */}
+          <input
+            onChange={setRoomHeightDimensions}
+            type="number"
+            min="1"
+            max="10"
+          />
         </div>
       </React.Fragment>
     );

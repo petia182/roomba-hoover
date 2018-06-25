@@ -279,11 +279,11 @@ class App extends Component {
           />
           <hr />
           <div className="dirt-settings">
-            <p>Add Dirt</p>
+            <p>Add Dirt Patches</p>
             <label htmlFor="">X: </label>
-            <input ref={this.dirtXcoordinate} type="number" />
+            <input ref={this.dirtXcoordinate} type="number" min="0" max="10" />
             <label htmlFor="">Y: </label>
-            <input ref={this.dirtYcoordinate} type="number" />
+            <input ref={this.dirtYcoordinate} type="number" min="0" max="10" />
             <button
               className="add-patch"
               onClick={this.addDirtPatchForm}

@@ -97,11 +97,11 @@ class App extends Component {
 	};
 
 	componentDidMount() {
-		window.addEventListener("keyup", this.handleKeyUp.bind(this));
+		window.addEventListener("keydown", this.handleKeyUp.bind(this));
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("keyup", this.handleKeyUp.bind(this));
+		window.removeEventListener("keydown", this.handleKeyUp.bind(this));
 	}
 
 	deleteDirtPatch = key => {
